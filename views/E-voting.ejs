@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Welcome to voting system</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="assets/css/normalize.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/flag-icon.min.css">
+    <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
+    <!-- <link rel="stylesheet" href="assets/css/bootstrap-select.less"> -->
+    <link rel="stylesheet" href="assets/scss/style.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+
+</head>
+<body class="bg-dark">
+
+  <div class="sufee-login d-flex align-content-center flex-wrap">
+    <div class="container">
+      <div class="login-content">
+        <div class="login-form">
+            <div class="form-group">
+              <label>Voter Address</label>
+                   <% if(data.length){
+                     for(var i = 0;i < data.length;i++) { %>
+                     <input class="form-control" id="txtAddress" name="txtAddress" placeholder="voter address" value="<%=data[i].voterAddress%>" disabled>
+                   <%} } else {%>
+                       <input class="form-control" id="txtAddress" name="txtAddress" placeholder="voter address">
+                   <%}%>
+             </div>
+
+
+          <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+									                         <tr>
+                                             <th>No.</th>
+										                         <th>Name</th>
+										                         <th>Symbol</th>
+										                         <th>Action</th>
+									                          </tr>
+								                </thead>
+                                <tbody>
+                                <tr>
+                                  <td>1</td>
+                                  <td><h4>Eastern</h4></td>
+                                  <td><img src="/../images/chaki.jpg" height="50" width="50"></td>
+                                  <td><button type='button' class='btn btn-primary btn-lg' id="Eastern" onclick="Evoting(1);"> Vote </button></td>
+                                </tr>
+                                <tr>
+                                  <td>2</td>
+                                  <td><h4>Pigeons</h4></td>
+                                  <td><img src="/../images/kabutar.jpeg" height="50" width="50"></td>
+                                  <td><button type='button' class='btn btn-primary btn-lg' id="Pigeons" onclick="Evoting(2);"> Vote </button></td>
+                                </tr>
+                                <tr>
+                                  <td>3</td>
+                                  <td><h4>Parrot</h4></td>
+                                  <td><img src="/../images/popat.png" height="50" width="50"></td>
+                                  <td><button type='button' class='btn btn-primary btn-lg' id="Parrot" onclick="Evoting(3);"> Vote </button></td>
+                                </tr>
+                                <tr>
+                                  <td>4</td>
+                                  <td><h4>AngryBirds</h4></td>
+                                  <td><img src="/../images/angri.jpeg" height="50" width="50"></td>
+                                  <td><button type='button' class='btn btn-primary btn-lg' id="AngryBirds" onclick="Evoting(4);"> Vote </button></td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                     </div>
+
+</body>
+
+    <script src="assets/js/vendor/jquery-2.1.4.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- jQuery -->
+    <script src="/../vendor/jquery/jquery.min.js"></script>
+    <script src="/../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="/../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/../dist/js/sb-admin-2.js"></script>
+
+<script>
+$(document).ready(function() {
+  $(".voterVote").click(function(){
+    alert($(this).val());
+  });
+});
+</script>
+<script>
+
+ var href = 'http://localhost:3000/Evoting/E-voting';  //$(this).attr('href');
+ window.history.pushState({href: href}, '', href);
+		function Evoting(voterID){
+     var txtAddress = $.trim($("#txtAddress").val());
+     postItem(voterID,txtAddress);
+		}
+    function postItem(Id,address) {
+            $.ajax({
+                type: "POST",
+                url: "/Evoting/HomePage",
+                data: {Id,address},
+                success: function(data) {
+                  if(data == '200'){
+					alert("Done");
+				  }else{
+					alert("Voting failed");
+				  }
+                },
+                error: function(jqXHR, textStatus, err) {
+                    //show error message
+                    alert('text status '+textStatus+', err '+err)
+                }
+            });
+
+			window.setTimeout(function(){window.location.assign("http://localhost:3000/Evoting");},1500);
+        }
+
+  </script>
+
+</body>
+
+</html>

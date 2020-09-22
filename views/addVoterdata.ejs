@@ -1,0 +1,64 @@
+<%- include header.ejs %>
+
+<body>
+       <div class="content mt-3">
+         <div class="animated fadeIn">
+             <div class="row">
+               <div class="col-lg-10">
+                 <div class="card">
+                   <div class="card-header">
+                      Voter Registration Form
+                   </div>
+                   <div class="card-body card-block">
+                     <form action="/Evoting/Addvoterdata" method="post" class="form-horizontal">
+                       <div class="row form-group">
+                           <input name="voterAddress" value="<%=data[0].address%>" hidden>
+                       </div>
+                       <div class="row form-group">
+                         <div class="col col-md-3"><label for="text-input" class=" form-control-label">Voter Election ID</label></div>
+                         <div class="col-12 col-md-9"><input type="text" id="voterElectionId" name="voterElectionId" placeholder="Enter voter election card number" class="form-control"></div>
+                       </div>
+                       <div class="row form-group">
+                         <div class="col col-md-3"><label for="fname-input" class=" form-control-label">Voter First Name</label></div>
+                         <div class="col-12 col-md-9"><input type="text" id="voterfastName" name="voterfastName" placeholder="Enter voter first name" class="form-control"></div>
+                       </div>
+                       <div class="row form-group">
+                         <div class="col col-md-3"><label for="lname-input" class=" form-control-label">Voter Last Name</label></div>
+                         <div class="col-12 col-md-9"><input type="text" id="voterlastName" name="voterlastName" placeholder="Enter voter last name" class="form-control"></div>
+                       </div>
+                       <div class="row form-group">
+                         <div class="col col-md-3"><label for="select" class=" form-control-label">Gender</label></div>
+                         <div class="col-12 col-md-9">
+                           <select name="selectUserAccess" id="selectUserAccess" class="form-control">
+                             <option value="">Please select</option>
+                             <option value="1">MALE</option>
+                             <option value="2">FEMALE</option>
+                           </select>
+                         </div>
+                       </div>
+                       <div class="card-footer">
+                         <button type="submit" class="btn btn-primary" id="submitData">
+                           </i> Submit
+                         </button>
+                         <button type="reset" class="btn btn-danger" id="resetData">
+                           </i> Reset
+                         </button>
+                       </div>
+                     </form>
+                   </div>
+
+                 </div>
+
+               </div>
+                 </div>
+               </div>
+             </div>
+         </div>
+
+
+
+<%- include footer.ejs %>
+
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<%- include header.ejs %>
+
+<div class="content mt-3">
+<div class="animated fadeIn">
+<div class="row">
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title">Voters</strong>
+        </div>
+    <div class="card-body">
+      <table id="bootstrap-data-table" class="patentDataTable table table-striped table-bordered">
+          <thead>
+            <tr>
+                <th>No</th>
+                <th hidden>Voter ID</th>
+                <th>Election Id</th>
+                <th hidden>Address</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>vote status</th>
+              <!--  <th>TranscationHash</th>-->
+            </tr>
+          </thead>
+          <tbody>
+            <% if(data.length){
+                %>  <%
+                var count=0;
+                for(var i = 0;i < data.length;i++) { %>
+                    <tr class="odd gradeX">
+                    <td><%=count += 1%></td>
+                    <td hidden><%=data[i].voterID%></td>
+                    <td><%=data[i].voterElectionId%></td>
+                    <td hidden><%=data[i].voterAddress%></td>
+                    <td><%= (data[i].voterFastName) +' ' + (data[i].voterLastName) %></td>
+                      <% if(data[i].voterGender==1){ %>
+                    <td>Male</td>
+                      <%  }else if(data[i].voterGender==2){ %>
+                    <td>Famale</td>
+                      <%  } else { %>
+                    <td>Unique</td>
+                      <%}%>
+                    <td><%=data[i].voterVoted%></td>
+              <!--  <td><%=data[i].TranscationHash%></td>-->
+                    </tr>
+                        <% } %>
+
+                        <%  }else{ %>
+                    <tr>
+                      <td>NA</td>
+                      <td hidden>NA</td>
+                      <td hidden>NA</td>
+                      <td>NA</td>
+                      <td>NA</td>
+                      <td>NA</td>
+                      <td>NA</td>
+                    </tr>
+                     <% } %>
+            </tbody>
+     </table>
+    </div>
+  </div>
+</div>
+
+
+</div>
+</div><!-- .animated -->
+</div>
+
+
+
+
+  <%- include footer.ejs %>

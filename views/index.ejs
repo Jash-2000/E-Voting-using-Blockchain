@@ -1,0 +1,143 @@
+<%- include header.ejs %>
+
+          <div class="content mt-3">
+            <form method="post" action="/Evoting/Dashboard">
+                <div class="col-lg-10">
+                    <button type="submit" class="btn btn-primary btn-lg" id="getresult">Get Result</button>
+                </div>
+              </form>
+          </div>
+
+        <div class="content mt-3">
+            <div class="animated fadeIn">
+                <div class="row">
+
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Voting data</strong>
+                        </div>
+                        <div class="card-body">
+                  <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Candidate ID</th>
+                                          <th>Name</th>
+                                          <th>Party Name</th>
+                                          <th>Total vote</th>
+                                          <th>Vote (%)</th>
+                                          <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% if(data.length){
+                                       %>  <%
+                                       for(var i = 0;i < data.length;i++) { %>
+                                         <tr class="odd gradeX">
+                                          <td><%=data[i].candidateID%></td>
+                                          <td><%=data[i].name%></td>
+                                          <td><%=data[i].partyName%></td>
+                                          <td><%=data[i].voteCount%></td>
+                                           <td><%=data[i].parcetange%></td>
+                                          <td><%=data[i].winloss%></td>
+                                          </tr>
+                                          <% } %>
+
+                                       <%  }else{ %>
+                                         <tr class="odd gradeX">
+                                             <td>NA</td>
+                                             <td>NA</td>
+                                             <td>NA</td>
+                                             <td>NA</td>
+                                             <td>NA</td>
+                                             <td>NA</td>
+                                           </tr>
+                                   <% } %>
+                    </tbody>
+                  </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                </div>
+            </div><!-- .animated -->
+        </div>
+        <div class="col-sm-6" id="hideChart">
+                           <div class="card">
+                               <div class="card-body">
+                                   <h4 class="mb-3">Pie Chart </h4>
+                                   <canvas id="pieChart"></canvas>
+                               </div>
+                           </div>
+                       </div>
+        <!-- .content -->
+
+
+    </div><!-- /#right-panel -->
+
+    <!-- Right Panel -->
+
+    <!-- Morris Charts JavaScript -->
+    
+
+
+    <script src="../assets/js/lib/chart-js/Chart.bundle.js"></script>
+  <script src="../assets/js/lib/chart-js/chartjs-init.js"></script>
+
+    <script>
+
+  $(document).ready(function() {
+        //$('#hideChart').hide();
+        console.log('<%= data.length %>');
+        if(' <%= data.length %> ' != 0){
+          $('#hideChart').show();
+        } else {
+          $('#hideChart').hide();
+        }
+});
+( function ( $ ) {
+    "use strict";
+
+    //pie chart
+    var ctx = document.getElementById( "pieChart" );
+    ctx.height = 300;
+      var chardata =[];
+      var chartlabel =[];
+      '<% for(var ii=0; ii<data.length;ii++){ %>'
+          chardata.push('<%=data[ii].voteCount%>');
+          chartlabel.push('<%=data[ii].name%>');
+      '<%}%>'
+
+    var myChart = new Chart( ctx, {
+        type: 'pie',
+        data: {
+            datasets: [ {
+                data:chardata,
+                backgroundColor: [
+                                    "rgba(0, 123, 255,0.9)",
+                                    "rgba(0, 123, 255,0.7)",
+                                    "rgba(0, 123, 255,0.5)",
+                                    "rgba(0,0,0,0.07)"
+                                ],
+                hoverBackgroundColor: [
+                                    "rgba(0, 123, 255,0.9)",
+                                    "rgba(0, 123, 255,0.7)",
+                                    "rgba(0, 123, 255,0.5)",
+                                    "rgba(0,0,0,0.07)"
+                                ]
+
+                            } ],
+            labels:chartlabel
+        },
+        options: {
+            responsive: true
+        }
+    } );
+
+
+} )( jQuery );
+</script>
+
+</body>
+</html>
